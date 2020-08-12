@@ -8,6 +8,7 @@ $(document).ready(()=>{
     var elem = $("#timer");
     var start = $("#start");
     var lap = $("#lap");
+    var clear = $("#clear");
 
     start.focus();
     start.click(()=>{
@@ -31,7 +32,6 @@ $(document).ready(()=>{
     });
 
     lap.click(()=>{
-        lap.css("transform","rotate(5deg)");
         if(isStarted){
             lap.css("transform","rotate(0deg)");
             if(lastlaptime == null)
@@ -43,6 +43,10 @@ $(document).ready(()=>{
             elem.text(diff);
             lastlaptime = laptime;
         }
+    });
+
+    clear.click(()=>{
+        elem.text("00:00:00.000");
     });
 
     
