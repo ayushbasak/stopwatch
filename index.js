@@ -5,6 +5,7 @@ $(document).ready(()=>{
     var stopTime;
     var lastlaptime;
     var laptime;
+    let laps = 0;
     var elem = $("#timer");
     var start = $("#start");
     var lap = $("#lap");
@@ -18,7 +19,6 @@ $(document).ready(()=>{
             start.text("STOP");
             let date = new Date();
             startTime = date.getTime();
-            // updateTime(elem,startTime);
         }
         else{
             start.css("background","#a6dcef");
@@ -33,6 +33,7 @@ $(document).ready(()=>{
 
     lap.click(()=>{
         if(isStarted){
+            laps += 1;
             lap.css("transform","rotate(0deg)");
             if(lastlaptime == null)
                 lastlaptime = startTime;
@@ -40,13 +41,28 @@ $(document).ready(()=>{
             laptime = date.getTime();
 
             const diff = setChanges(lastlaptime,laptime);
-            elem.text(diff);
             lastlaptime = laptime;
+
+            let newElement = document.createElement("div");
+            newElement.className  = "89ysiodfgert";
+            newElement.style.cssText = "width:98vw;display:flex;justify-content:center;align-items:center";
+            let inputElement = document.createElement("p");
+            inputElement.innerText = laps +". " + diff;
+            inputElement.style.cssText = "margin:15px;font-family:Raleway;text-align:center;background:#e0dede;padding:20px;font-size:50px;width:400px;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.034),0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072),0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)";
+            newElement.append(inputElement);
+            document.body.append(newElement);
         }
     });
 
     clear.click(()=>{
-        elem.text("00:00:00.000");
+        if(!isStarted){
+            if(laps > 0){
+                $(".89ysiodfgert").remove();
+            }
+            elem.text("00:00:00.000");
+            laps = 0;
+        }
+        
     });
 
     
